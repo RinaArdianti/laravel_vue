@@ -6,7 +6,25 @@
                     <div class="card-header">AKTE</div>
 
                     <div class="card-body">
-                        ini adalah halaman AKTE
+                        <div class= "form-grow">
+                            <div class= "table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th>Nama Penduduk</th>
+                                        <th>TTL</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                        
+                                    </tr>
+                                    <tr v-for="item in aktes" :key="item.id">
+                                        <td> {{item.namaAkte}}   </td>
+                                        <td>{{item.ttl}}</td>
+                                        <td>{{item.status}}</td>
+                                        <td>  Edit | Hapus</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -15,9 +33,21 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
+
+    export default{
+        data(){
+            return{
+                aktes :{}
+            };
+        },
+        methods:{
+            loadData(){
+                axios.get('api/ambilakte').then(({data})=>(this.aktes= data));
+                
+            }
+        },
+        created(){
+            this.loadData();
         }
     }
 </script>
